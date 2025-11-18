@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Aelia ID Card Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+
+  <!-- JsBarcode for barcode generation -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+  <!-- html2canvas for downloading the card as PNG -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Aelia Logo" class="brand-logo">
+      <div class="brand-text">
+        <div class="company">Aelia</div>
+        <div class="tagline">shines like sun</div>
+      </div>
+    </div>
+    <h1>ID Card Preview</h1>
+  </header>
+
+  <main class="wrap">
+
+    <!-- FORM SECTION -->
+    <section class="form-panel">
+  <label>Select Template</label>
+  <select id="templateSelect">
+    <option value="template1">Classic Maroon</option>
+    <option value="template2">Professional Blue</option>
+  </select>
+
+      <h2>Enter Details</h2>
+
+      <label>Full Name</label>
+      <input id="name" />
+
+      <label>Job Position</label>
+      <input id="position" />
+
+      <label>ID Number</label>
+      <input id="idnum" />
+
+      <label>Date of Birth</label>
+      <input id="dob" type="date" />
+
+      <label>Phone</label>
+      <input id="phone" />
+
+      <label>Email</label>
+      <input id="email" />
+
+      <label>Issue Date</label>
+      <input id="issuedate" type="date" />
+
+      <label>Expiry Date</label>
+      <input id="expirydate" type="date" />
+
+      <label>Upload Photo</label>
+      <input id="photo" type="file" accept="image/*">
+
+      <label>Upload Signature</label>
+      <input id="signature" type="file" accept="image/*">
+
+      <div class="form-actions">
+        <button class="btn" onclick="updatePreview()">Update</button>
+        <button class="btn secondary" onclick="downloadSide('front')">Download Front</button>
+        <button class="btn secondary" onclick="downloadSide('back')">Download Back</button>
+      </div>
+    </section>
+    <a href="dashboard.html" class="btn">Go to Dashboard</a>
+
+    <!-- PREVIEW SECTION -->
+    <section class="preview-panel">
+      <h2>Front & Back</h2>
+
+      <div class="preview-row">
+
+        <!-- FRONT CARD -->
+        <div class="card-wrap">
+          <div id="card-front" class="card card-front template1">
+
+
+            <!-- Maroon top -->
+            <div class="front-top">
+              <div class="maroon-block">
+                <svg class="gold-curve" viewBox="0 0 400 120" preserveAspectRatio="none">
+                  <path d="M0 80 C120 20, 240 140, 400 60 L400 0 L0 0 Z" fill="#d9b36a"/>
+                </svg>
+
+                <div class="logo-circle">
+                  <img src="assets/logo.png" alt="logo">
+                </div>
+              </div>
+            </div>
+
+            <!-- Photo -->
+            <div class="photo-frame">
+              <img id="photoPreview" src="">
+            </div>
+
+            <!-- TEXT INFO -->
+            <div class="info-block">
+              <div class="name" id="preview_name">Your Name</div>
+              <div class="position" id="preview_position">Job Position</div>
+
+              <div class="meta-row">
+                <div><span class="label">ID</span><div id="preview_id">---</div></div>
+                <div><span class="label">DOB</span><div id="preview_dob">--/--/----</div></div>
+              </div>
+
+              <div class="contact-row">
+                <div><span class="label">Phone</span><div id="preview_phone">---</div></div>
+                <div><span class="label">Email</span><div id="preview_email">---</div></div>
+              </div>
+            </div>
+
+            <!-- BARCODE -->
+            <div class="barcode-area">
+              <svg id="barcode"></svg>
+            </div>
+          </div>
+          <div class="caption">Front</div>
+        </div>
+
+        <!-- BACK CARD -->
+        <div class="card-wrap">
+          <div id="card-back" class="card card-back template1">
+
+
+
+            <div class="back-header">
+              <img src="assets/logo.png" class="back-logo">
+              <div class="back-title">Aelia</div>
+              <div class="back-tag">shines like sun</div>
+            </div>
+
+            <div class="terms">
+              <strong>Terms and Conditions</strong>
+              <ol>
+                <li>Employees must use the card on duty.</li>
+                <li>If lost or damaged, a fee will be charged.</li>
+                <li>If found, return or contact the number on the front.</li>
+              </ol>
+            </div>
+
+            <div class="sig-area">
+              <div class="sig-left">
+                <div class="sig-label">Signature</div>
+                <img id="signaturePreview" src="">
+                <div class="sig-name">Authorized Signatory</div>
+              </div>
+
+              <div class="dates">
+                <div><span class="label">Issue date</span><div id="preview_issue">--/--/----</div></div>
+                <div><span class="label">Expiry date</span><div id="preview_expiry">--/--/----</div></div>
+              </div>
+            </div>
+
+            <!-- SCANNER IMAGE INSERTED HERE -->
+            <div class="scanner-box">
+              <img src="assets/scanner.png" alt="scanner">
+            </div>
+
+          </div>
+          <div class="caption">Back</div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

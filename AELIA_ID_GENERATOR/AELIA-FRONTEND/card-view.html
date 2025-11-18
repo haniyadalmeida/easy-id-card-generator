@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Full Card Viewer - Aelia</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+    background: #e8edff;
+    padding: 40px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.viewer-container {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* SAME card style as generator */
+.card {
+    width: 350px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+
+.card-header {
+    background: #651b1b;
+    height: 120px;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::after {
+    content: "";
+    position: absolute;
+    bottom: -35px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #d1a05d;
+    border-radius: 60% / 40%;
+}
+
+.logo {
+    width: 65px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.profile-pic {
+    width: 110px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-top: -40px;
+    background: white;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.card-body {
+    padding: 10px 25px;
+}
+
+.card-body h2 {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #a13d3d;
+    margin-bottom: 15px;
+}
+
+.card-cols {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.barcode-img {
+    width: 92%;
+    margin-top: 15px;
+}
+.qr-img {
+    width: 150px;
+    margin-top: 10px;
+}
+
+/* BACK CARD STYLE */
+.back-content {
+    padding: 20px 30px;
+    text-align: left;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-top: 10px;
+}
+.sig-box {
+    width: 150px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: contain;
+}
+
+.details-right {
+    text-align: right;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+<h1>Full Card Preview</h1>
+
+<div class="viewer-container">
+
+    <!-- FRONT CARD -->
+    <div class="card" id="frontCard">
+        <div class="card-header">
+            <img id="logoFront" class="logo">
+        </div>
+
+        <center><img id="photoFront" class="profile-pic"></center>
+
+        <div class="card-body">
+            <h2 id="nameFront"></h2>
+            <div class="subtitle" id="positionFront"></div>
+
+            <div class="card-cols">
+                <div>
+                    <b>ID</b><br>
+                    <span id="idFront"></span>
+                </div>
+                <div>
+                    <b>DOB</b><br>
+                    <span id="dobFront"></span>
+                </div>
+            </div>
+
+            <center>
+                <img id="barcodeFront" class="barcode-img">
+            </center>
+        </div>
+    </div>
+
+    <!-- BACK CARD -->
+    <div class="card">
+        <div class="card-header">
+            <img id="logoBack" class="logo">
+        </div>
+
+        <div class="back-content">
+
+            <center>
+                <h2>Aelia</h2>
+                <div style="margin-top:-8px; color:#b8925d">shines like sun</div>
+            </center>
+
+            <div class="section-title">Terms and Conditions</div>
+            1. Employees must use the card on duty.<br>
+            2. If lost or damaged, a fee will be charged.<br>
+            3. If found, return/contact the number on front.<br><br>
+
+            <div class="section-title">Signature</div>
+            <img id="signatureBack" class="sig-box">
+
+            <div class="details-right">
+                <b>Issue date</b><br>
+                <span id="issueBack"></span><br><br>
+
+                <b>Expiry date</b><br>
+                <span id="expiryBack"></span>
+            </div>
+
+            <center>
+                <div class="section-title">Authorized Signatory</div>
+                <img id="scannerBack" class="qr-img">
+            </center>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+async function loadCard() {
+    const res = await fetch(`http://localhost:4000/api/cards/${id}`);
+    const c = await res.json();
+
+    // FRONT
+    document.getElementById("logoFront").src = c.logo;
+    document.getElementById("photoFront").src = c.photo;
+    document.getElementById("nameFront").textContent = c.name;
+    document.getElementById("positionFront").textContent = c.position;
+    document.getElementById("idFront").textContent = c.idnum;
+    document.getElementById("dobFront").textContent = c.dob;
+    document.getElementById("barcodeFront").src = c.barcode;
+
+    // BACK
+    document.getElementById("logoBack").src = c.logo;
+    document.getElementById("signatureBack").src = c.signature;
+    document.getElementById("issueBack").textContent = c.issuedate;
+    document.getElementById("expiryBack").textContent = c.expirydate;
+    document.getElementById("scannerBack").src = c.scanner;
+}
+
+loadCard();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aelia Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #eef2ff; padding: 20px; font-family: Arial; }
+
+        h1 { text-align: center; }
+
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px;
+        }
+
+        input.search {
+            padding: 10px;
+            width: 300px;
+            border-radius: 8px;
+            border: 1px solid #bbb;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .card-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .card-photo {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ff4e4e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info div { margin-top: 4px; font-size: 14px; }
+        .name { font-size: 16px; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+<h1>Aelia Cards Dashboard</h1>
+
+<div class="top-controls">
+    <input type="text" class="search" placeholder="Search by name or ID..." onkeyup="applyFilters()">
+
+    <select id="sortOption" onchange="applyFilters()">
+        <option value="name">Sort by Name</option>
+        <option value="idnum">Sort by ID</option>
+        <option value="position">Sort by Position</option>
+    </select>
+</div>
+
+<div class="grid" id="dashboardGrid"></div>
+
+<script>
+const BACKEND_URL = "http://localhost:4000";
+let allCards = [];
+
+async function loadDashboard() {
+    const res = await fetch(`${BACKEND_URL}/api/cards`);
+    allCards = await res.json();
+    renderCards(allCards);
+}
+
+function renderCards(cards) {
+    const grid = document.getElementById("dashboardGrid");
+    grid.innerHTML = "";
+
+    cards.forEach(card => {
+        const box = document.createElement("div");
+        box.className = "card-box";
+
+        box.innerHTML = `
+            <button class="delete-btn" onclick="deleteCard('${card.id}')">×</button>
+            <img src="${BACKEND_URL + card.photo}" class="card-photo">
+            <div class="info">
+                <div class="name">${card.name}</div>
+                <div>ID: ${card.idnum}</div>
+                <div>Position: ${card.position}</div>
+            </div>
+        `;
+
+        box.onclick = (e) => {
+            if (e.target.classList.contains('delete-btn')) return;
+            window.location.href = "card-view.html?id=" + card.id;
+        };
+
+        grid.appendChild(box);
+    });
+}
+
+function applyFilters() {
+    const search = document.querySelector(".search").value.toLowerCase();
+    const sortBy = document.getElementById("sortOption").value;
+
+    let filtered = allCards.filter(card =>
+        card.name.toLowerCase().includes(search) ||
+        card.idnum.toLowerCase().includes(search)
+    );
+
+    filtered.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
+
+    renderCards(filtered);
+}
+
+async function deleteCard(id) {
+    if (!confirm("Delete this card?")) return;
+
+    const res = await fetch(`${BACKEND_URL}/api/cards/${id}`, { method: "DELETE" });
+    const data = await res.json();
+
+    if (data.ok) {
+        allCards = allCards.filter(c => c.id !== id);
+        renderCards(allCards);
+        alert("Card deleted!");
+    }
+}
+
+loadDashboard();
+</script>
+
+</body>
+</html>

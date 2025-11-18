@@ -1,0 +1,431 @@
+:root{
+  --maroon: #5a1717;
+  --gold: #d9b36a;
+  --card-width: 320px;
+  --card-height: 500px;
+  --white: #fff;
+  --muted: #666;
+  --shadow: 0 12px 28px rgba(15,23,42,0.12);
+}
+
+/* RESET */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #eef2ff;
+  color:#111827;
+}
+
+/* Top header */
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:20px 28px;
+  background:white;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-logo{
+  width:54px;
+  height:54px;
+  object-fit:contain;
+}
+
+.brand-text .company{
+  font-weight:700;
+  font-size:20px;
+}
+
+.brand-text .tagline{
+  font-size:12px;
+  color:#777;
+}
+
+.wrap{
+  display:flex;
+  gap:28px;
+  padding:0 28px 40px 28px;
+}
+
+/* ---------------------- FORM PANEL ---------------------- */
+.form-panel{
+  width:360px;
+  background:white;
+  border-radius:12px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  height: calc(var(--card-height) + 40px);
+  overflow:auto;
+}
+
+.form-panel h2{
+  margin-bottom:12px;
+}
+
+.form-panel label{
+  display:block;
+  margin:10px 0 4px;
+  font-size:14px;
+}
+
+.form-panel input{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #d9dbe1;
+  border-radius:8px;
+  background:#fafbff;
+  font-size:14px;
+}
+
+.form-actions{
+  display:flex;
+  gap:8px;
+  margin-top:16px;
+}
+
+.btn{
+  flex:1;
+  padding:10px 14px;
+  border-radius:10px;
+  border:none;
+  background:var(--maroon);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.btn.secondary{
+  background:#333;
+}
+
+.btn:hover{
+  opacity:0.92;
+}
+
+/* ---------------------- PREVIEW PANEL ---------------------- */
+.preview-panel{
+  flex:1;
+}
+
+.preview-panel h2{
+  font-size:22px;
+  margin-bottom:12px;
+}
+
+.preview-row{
+  display:flex;
+  gap:30px;
+}
+
+/* ---------------------- CARD STYLES ---------------------- */
+.card-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.card{
+  width:var(--card-width);
+  height:var(--card-height);
+  border-radius:14px;
+  background:white;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+}
+
+.caption{
+  margin-top:10px;
+  font-size:14px;
+  color:#555;
+}
+
+/* ---------------- FRONT DESIGN -------------------- */
+.front-top{
+  height:140px;
+  background:var(--maroon);
+  position:relative;
+}
+
+.maroon-block{
+  width:100%;
+  height:100%;
+  position:relative;
+  overflow:hidden;
+}
+
+.gold-curve{
+  position:absolute;
+  bottom:-5px;
+  left:0;
+  width:100%;
+  height:80px;
+}
+
+.logo-circle{
+  position:absolute;
+  top:16px;
+  left:16px;
+  width:64px;
+  height:64px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.logo-circle img{
+  width:58px;
+  height:58px;
+  object-fit:contain;
+}
+
+/* PHOTO */
+.photo-frame{
+  position:absolute;
+  top:100px;
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+
+.photo-frame img{
+  width:120px;
+  height:140px;
+  border-radius:10px;
+  object-fit:cover;
+  border:4px solid white;
+  box-shadow:0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* TEXT INFO */
+.info-block{
+  margin-top:160px;
+  padding:15px 18px;
+  text-align:center;
+}
+
+.name{
+  font-size:18px;
+  font-weight:700;
+}
+
+.position{
+  font-size:14px;
+  color:#7f2930;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+.meta-row{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin-bottom:10px;
+}
+
+.meta-row .label{
+  font-size:12px;
+  color:#777;
+}
+
+.contact-row{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  font-size:13px;
+}
+
+/* BARCODE */
+.barcode-area{
+  width:100%;
+  height:75px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#fafafa;
+  position:absolute;
+  bottom:0;
+}
+
+#barcode{
+  width:240px;
+  height:60px;
+}
+
+/* ---------------- BACK DESIGN -------------------- */
+
+.card-back{
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+}
+
+.back-header{
+  text-align:center;
+  padding-bottom:8px;
+  border-bottom:1px solid #ddd;
+}
+
+.back-logo{
+  width:60px;
+  height:60px;
+}
+
+.back-title{
+  font-size:20px;
+  font-weight:700;
+}
+
+.back-tag{
+  font-size:12px;
+  color:#987c49;
+  margin-bottom:6px;
+}
+
+/* TERMS */
+.terms{
+  margin-top:10px;
+  font-size:13px;
+}
+
+.terms ol{
+  margin-left:20px;
+}
+
+/* SIGNATURE AREA */
+.sig-area{
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+  margin-top:14px;
+}
+
+.sig-left{
+  text-align:center;
+}
+
+.sig-label{
+  font-size:12px;
+  color:#777;
+}
+
+#signaturePreview{
+  width:150px;
+  height:50px;
+  object-fit:contain;
+  background:white;
+  border:1px solid #ccc;
+  border-radius:4px;
+  margin-top:4px;
+}
+
+.sig-name{
+  font-size:12px;
+  margin-top:4px;
+  color:#444;
+}
+
+.dates{
+  margin-left:auto;
+  font-size:12px;
+}
+
+.dates .label{
+  color:#777;
+}
+
+/* SCANNER */
+.scanner-box{
+  margin-top:12px;
+  display:flex;
+  justify-content:center;
+}
+
+.scanner-box img{
+  width:140px;
+  height:140px;
+  object-fit:contain;
+  border:1px solid #ccc;
+  border-radius:6px;
+  background:white;
+  padding:6px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .wrap{
+    flex-direction:column;
+  }
+  .form-panel{
+    width:100%;
+    height:auto;
+  }
+  .preview-row{
+    flex-direction:column;
+    align-items:center;
+  }
+}
+/* ================== TEMPLATE SYSTEM ================== */
+
+/* Default template (Template 1 is your existing design) */
+.template1 .front-top { background: var(--maroon); }
+.template1 .position { color: #7f2930; }
+
+/* ---------------- TEMPLATE 2 — Professional Blue ---------------- */
+
+.template2 {
+  background: #ffffff !important;
+}
+
+/* FRONT */
+.template2 .front-top {
+  background: #003f7f !important;
+}
+
+.template2 .gold-curve {
+  display: none !important;
+}
+
+.template2 .position {
+  color: #004c8c !important;
+}
+
+.template2 .photo-frame img {
+  border-color: #003f7f !important;
+}
+
+/* BACK */
+.template2.card-back {
+  background: #f5f8ff !important;
+}
+
+.template2 .back-header {
+  border-bottom: 2px solid #003f7f !important;
+}
+
+.template2 .back-title {
+  color: #003f7f !important;
+}
+
+.template2 .sig-area {
+  border-top: 1px dashed #003f7f !important;
+}
+
+.template2 .scanner-box img {
+  border-color: #003f7f !important;
+}
+
